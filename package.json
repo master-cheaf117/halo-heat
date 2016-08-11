@@ -2,12 +2,16 @@
   "name": "halo-heat",
   "version": "1.1.1",
   "description": "halo-heat: An Ionic project",
+  "repository": "https://github.com/master-cheaf117/halo-heat",
+  "author":"Ethan Perez",
+  "license": "MIT",
+  "engines": { "node":">=6.3.1"},
   "dependencies": {
     "gulp": "^3.5.6",
-    "gulp-sass": "^2.0.4",
+    "gulp-clean-css": "^2.0.12",
     "gulp-concat": "^2.2.0",
-    "gulp-minify-css": "^0.3.0",
-    "gulp-rename": "^1.2.0"
+    "gulp-rename": "^1.2.0",
+    "gulp-sass": "^2.0.4"
   },
   "devDependencies": {
     "bithound": "^1.7.0",
