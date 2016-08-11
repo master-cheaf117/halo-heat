@@ -1,9 +1,7 @@
 sudo: false
-
 language: node_js
 node_js:
-  - "6.3.1"
-
+- 6.3.1
 addons:
   apt:
     sources:
@@ -13,30 +11,35 @@ addons:
     - openjdk-7-jdk
     - lib32stdc++6
     - lib32z1
-env:
-  CXX=g++-4.8
-
+env: CXX=g++-4.8
 install:
-  - npm install -g gulp bower cordova ionic
-  - npm install
-  - bower update
-
+- npm install -g gulp bower cordova ionic
+- npm install
+- bower update
 before_script:
-  - wget http://dl.google.com/android/android-sdk_r24.4-linux.tgz
-  - tar -xvf android-sdk_r24.4-linux.tgz
-  - echo y | ./android-sdk-linux/tools/android update sdk --no-ui --all --filter platform-tools
-  - echo y | ./android-sdk-linux/tools/android update sdk --no-ui --all --filter build-tools-23.0.2
-  - echo y | ./android-sdk-linux/tools/android update sdk --no-ui --all --filter android-23
-  - echo y | ./android-sdk-linux/tools/android update sdk --no-ui --all --filter extra-android-support
-  - echo y | ./android-sdk-linux/tools/android update sdk --no-ui --all --filter extra-android-m2repository
-  - echo y | ./android-sdk-linux/tools/android update sdk --no-ui --all --filter extra-google-m2repository
-  - export ANDROID_HOME=$PWD/android-sdk-linux
-  - export BIN=$PWD/node_modules/.bin
-  - export PATH=${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/23.0.2:$BIN
-
+- wget http://dl.google.com/android/android-sdk_r24.4-linux.tgz
+- tar -xvf android-sdk_r24.4-linux.tgz
+- echo y | ./android-sdk-linux/tools/android update sdk --no-ui --all --filter platform-tools
+- echo y | ./android-sdk-linux/tools/android update sdk --no-ui --all --filter build-tools-23.0.2
+- echo y | ./android-sdk-linux/tools/android update sdk --no-ui --all --filter android-23
+- echo y | ./android-sdk-linux/tools/android update sdk --no-ui --all --filter extra-android-support
+- echo y | ./android-sdk-linux/tools/android update sdk --no-ui --all --filter extra-android-m2repository
+- echo y | ./android-sdk-linux/tools/android update sdk --no-ui --all --filter extra-google-m2repository
+- export ANDROID_HOME=$PWD/android-sdk-linux
+- export BIN=$PWD/node_modules/.bin
+- export PATH=${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/23.0.2:$BIN
 script:
-  - bithound check git@github.com:master-cheaf117/halo-heat.git
-  - ionic platform remove android
-  - ionic platform add android
-  - ionic build android
-  - ls ionic info
+- bithound check git@github.com:master-cheaf117/halo-heat.git
+- ionic platform remove android
+- ionic platform add android
+- ionic build android
+- ls ionic info
+deploy:
+  provider: releases
+  api_key:
+    secure: PB/blhMp+AwaPZwA2YGTChc/SJ38X1U1DXKUCH1FEg6/twAFfJooQO2j/iYSfRD2+LvC4ooXB5sB6KcqGx3Nue80XaTQHj1xieabrcpwxRNEa+PbHjAKUBvlwukNRIXXyeihsOGO5fvI7beEnjTSeilOExNnT836/1DVsJLAIeGvzWeLUfNY3294wBBiulRyDVqrMPhtlYW8q024F6z3EaFUUD0rDPYVkDNIGIMEgH2Jwg2W6Q15XQ0JnerKZTQrWtT0LWrNTlabbfU+/JNaq0DSJUVsk2bFGiUYsHByIZrizUiKCICtC9Rnj2u99Pit1N6uWYol9FbJI1En0MtO0YrlRxnIQininLOPpS1HfFLlBHFrIqZ3idPSAb/vOEb+QEQXER23J6h8BduNjyBEHSuKP03Lwb++aE28XaoGrPXKAHcVdnp46lvau99mHep+P9lwo7omhsCHUYVZ5IawreLgixvfVxqbmvnvSm/eViVCyddRiXt/FzHpbZB3IaytZTqC14K0atzBD9GnmEV4Lpt41yYql+9vBpXJ51Bu+/ShuV8RWojcIrLqYP8whClu7FcnwwcOWq4bsCngnLzwNE4DW7ZdnPW+gPhNazpKvQNUf2tCtjxKd49NQ77QibLUso35ii5v+2UrCha7pOVipIhL9OhkfVU1YLB70yH31v0=
+  file: "master-cheaf117/halo-heat/platforms/android/build/outputs/apk/android-debug.apk"
+  skip_cleanup: true
+  on:
+    tags: true
+    repo: master-cheaf117/halo-heat
